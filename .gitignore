@@ -1,0 +1,11 @@
+/target/
+/build/
+
+# eclipse conf file
+.settings
+.classpath
+.project
+
+# gradle file
+.gradle
+/bin/
