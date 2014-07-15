@@ -44,10 +44,6 @@ function CalendarCtrl($scope) {
     $scope.alertOnResize = function(event, dayDelta, minuteDelta, revertFunc, jsEvent, ui, view ){
        $scope.alertMessage = ('Event Resized to make dayDelta ' + minuteDelta);
     };
-    /* alert on eventDblClick */
-    $scope.alertOnEventDblClick = function( event, allDay, jsEvent, view ){
-        $scope.alertMessage = (event.title + ' はダブルクリックされました。 ');
-    };
     /* add and removes an event source of choice */
     $scope.addRemoveEventSource = function(sources,source) {
       var canAdd = 0;
@@ -94,10 +90,12 @@ function CalendarCtrl($scope) {
           center: '',
           right: 'today prev,next'
         },
-        //eventClick: $scope.alertOnEventClick,
+        eventClick: $scope.alertOnEventClick,
         eventDrop: $scope.alertOnDrop,
         eventResize: $scope.alertOnResize,
-        eventDblClick: $scope.alertOnEventDblClick,
+        dayClick: function () {
+            alert('日付クリックイベント');
+        },
       }
     };
 
