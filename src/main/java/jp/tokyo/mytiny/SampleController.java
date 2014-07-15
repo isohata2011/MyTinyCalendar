@@ -43,9 +43,9 @@ public class SampleController {
     }
     
     
-    @RequestMapping("/schedule/list")
-    @ResponseBody
-    public String schedule(Model model) {
-        return "[]";
-    }    
+//    @RequestMapping("/schedule/list")
+//    @ResponseBody
+//    public String schedule(Model model) {
+//        return "[]";
+//    }    
 }

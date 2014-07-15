@@ -454,10 +454,20 @@ var CalenderAPI = {
         from: fmt.format(from),
         to: fmt.format(to)
       };
-      this.post('schedule/list', params, function(json) {
+      this.post('events/list', params, function(json) {
         var schedules = [];
         $.each(json, function(i,it) {
-          schedules.push(new Schedule(it.id, new Date(it.datetime), it.title, it.memo));
+        	
+          var d = new Date(it.startDatetime);
+          var year  = d.getFullYear();
+          var month = d.getMonth() + 1;
+          var day  = d.getDate();
+          var hour = ( d.getHours()   < 10 ) ? '0' + d.getHours()   : d.getHours();
+          var min  = ( d.getMinutes() < 10 ) ? '0' + d.getMinutes() : d.getMinutes();
+          var sec   = ( d.getSeconds() < 10 ) ? '0' + d.getSeconds() : d.getSeconds();
+          var dstr = year + '/' + month + '/' + day + ' ' + hour + ':' + min + ':' + sec;
+          
+          schedules.push(new Schedule(it.id, dstr, it.title, it.endDatetime));
         });
       	callback(schedules);
       });

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <meta content="0d98e1711511bad5603e965b33e2826af0c147ac" name="csrf-token" />
+    <script type="text/javascript" src="//code.jquery.com/jquery-2.1.0.min.js"></script>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"/>
+  </head>
+  <body>
+    <div class="container span12">
+      
+
+
+<h3>Event</h3>
+<hr/>
+<table class="table table-bordered">
+<thead></thead>
+<tbody>
+  <tr>
+    <th>ID</th>
+    <td th:text="${event.id}">1</td>
+  </tr>
+  <tr>
+    <th>Title</th>
+    <td th:text="${event.title}">イベント１</td>
+  </tr>
+  <tr>
+    <th>Start Date Time</th>
+    <td th:text="${event.startDatetime}">2014-06-01T10:00:00.000+09:00</td>
+  </tr>
+  <tr>
+    <th>End Date Time</th>
+    <td th:text="${event.endDatetime}">2014-06-01T12:00:00.000+09:00</td>
+  </tr>
+
+</tbody>
+</table>
+
+<hr/>
+<div class="form-actions">
+  <a class="btn btn-default" href="/events">Back to list</a>
+  <a th:href="@{/events/__${event.id}__/edit}" class="btn btn-info">Edit</a>
+  <a data-method="delete" data-confirm="Are you sure?"
+    th:href="@{/events/__${event.id}__}" rel="nofollow" class="btn btn-danger">Delete</a>
+</div>
+
+      <hr/>
+      <a class="btn btn-default" href="/">Top</a>
+    </div>
+    <script type="text/javascript" src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+  </body>
+</html>
