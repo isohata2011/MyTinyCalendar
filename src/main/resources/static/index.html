@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="calendarDemoApp" id="top">
+<head>
+    <title>AngularUI Calendar for AngularJS</title>
+    <link rel="icon" href="favicon.ico" />
+    <link rel="stylesheet" href="./js/bootstrap-css/css/bootstrap.css" />
+    <link rel="stylesheet" href="./js/fullcalendar/fullcalendar.css" />
+    <link rel="stylesheet" href="calendarDemo.css" />
+
+    <script src="./js/jquery/dist/jquery.js"></script>
+    <script src="./js/jquery-ui/ui/jquery-ui.js"></script>
+
+    <script src="./js/angular/angular.js"></script>
+    <script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.11.0.js"></script>
+    <script src="./js/fullcalendar/fullcalendar.js"></script>
+    <script src="./js/fullcalendar/gcal.js"></script>
+    <script src="./js/calendar.js"></script>
+    <script src="calendarDemo.js"></script>
+</head>
+<body data-spy="scroll">
+<header class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <div class="dropdown pull-left">
+                <a class="brand dropdown-toggle" role="button" data-toggle="dropdown" href="#">
+                    AngularUI
+                    <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                    <li><a href="https://github.com/angular-ui/"><strong>Related Projects:</strong></a></li>
+                    <li class="divider"></li>
+                    <li><a href="http://angular-ui.github.com/bootstrap/">Bootstrap</a></li>
+                    <li><a href="http://angular-ui.github.com/ng-grid/">Grid</a></li>
+                    <li><a href="https://github.com/angular-ui/AngularJs.tmbundle">AngularJS.tmbundle</a></li>
+                    <li><a href="http://angular-ui.github.io/ui-router/sample/">Router <span
+                            class="label label-success">New!</span></a></li>
+                    <li><a href="http://angular-ui.github.com/Tips-n-Tricks/">Tips-n-Tricks <span
+                            class="label">WIP</span></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</header>
+
+<div role="main">
+    <div class="container">
+        <section id="directives-calendar" ng-controller="CalendarCtrl">
+            <div class="page-header">
+                <h1>The Calendar</h1>
+            </div>
+            <div class="well">
+                <div class="row-fluid">
+
+                    <div class="span12">
+
+                              <div class="alert-success calAlert" ng-show="alertMessage != undefined && alertMessage != ''">
+                                <h4>{{alertMessage}}</h4>
+                              </div>
+                              <div class="btn-toolbar">
+                                <p class="pull-right lead">カレンダー</p>
+                                <div class="btn-group">
+                                    <button class="btn btn-success" ng-click="changeView('agendaDay', myCalendar1)">日</button>
+                                    <button class="btn btn-success" ng-click="changeView('agendaWeek', myCalendar1)">週</button>
+                                    <button class="btn btn-success" ng-click="changeView('month', myCalendar1)">月</button>
+                                </div>
+                              </div>
+                            <div class="calendar" ng-model="eventSources" calendar="myCalendar1" config="uiConfig.calendar" ui-calendar="uiConfig.calendar"></div>
+
+                    </div>
+                </div>
+            </div>
+
+        </section>
+    </div>
+</div>
+
+<!-- Modal for newEventForm-->
+<script type="text/ng-template" id="T_newEventForm">
+<div class="modelContainer">
+  <div class="modal-header contentsBackground">
+    <button title="Close" type="button" data-dismiss="modal" aria-hidden="true" class="close" ng-click="$close()">×</button>
+    <h3>Quick Create Event / To Do</h3>
+  </div>
+  <form action="index.php" method="post" name="QuickCreate" id="quickCreate" class="form-horizontal recordEditView">
+    <input type="hidden" value="[]" name="picklistDependency">
+    <input type="hidden" value="Calendar" name="module">
+    <input type="hidden" value="SaveAjax" name="action">
+    <input type="hidden" value="5" name="defaultCallDuration">
+    <input type="hidden" value="5" name="defaultOtherEventDuration">
+    <input type="hidden" value="0" name="userChangedEndDateTime">
+    <!-- Random number is used to make specific tab is opened -->
+    <div style="padding:0px" class="modal-body tabbable">
+      <ul style="margin-bottom:0px;padding-left:5px" class="nav nav-pills">
+        <li class="active"><a data-tab-name="Event" data-toggle="tab" data-target=".EventsQuikcCreateContents_961869539" href="javascript:void(0);">Event</a></li>
+        <li class=""><a data-tab-name="Task" data-toggle="tab" data-target=".CalendarQuikcCreateContents_961869539 " href="javascript:void(0);">To Do</a></li>
+      </ul>
+      <div class="tab-content overflowVisible">
+        <div class="CalendarQuikcCreateContents_961869539 tab-pane fade">
+          <div class="quickCreateContent" style="">
+            <div style="margin:5px">
+              <table class="massEditTable table table-bordered">
+                <tbody>
+                  <tr>
+                    <td class="fieldLabel alignMiddle"> <span class="redColor">*</span> Subject</td>
+                    <td class="fieldValue"><input type="text" data-fieldinfo="{&quot;mandatory&quot;:true,&quot;presence&quot;:true,&quot;quickcreate&quot;:true,&quot;masseditable&quot;:true,&quot;defaultvalue&quot;:false,&quot;type&quot;:&quot;string&quot;,&quot;name&quot;:&quot;subject&quot;,&quot;label&quot;:&quot;Subject&quot;}" value="" data-validation-engine="validate[required,funcCall[Vtiger_Base_Validator_Js.invokeValidation]]" class="input-large nameField" id="Calendar_editView_fieldName_subject" data-element-name="subject"></td>
+                    <td class="fieldLabel alignMiddle"> <span class="redColor">*</span> Assigned To</td>
+                    <td class="fieldValue">
+                      <select data-fieldinfo="{&quot;mandatory&quot;:true,&quot;presence&quot;:true,&quot;quickcreate&quot;:true,&quot;masseditable&quot;:true,&quot;defaultvalue&quot;:false,&quot;type&quot;:&quot;owner&quot;,&quot;name&quot;:&quot;assigned_user_id&quot;,&quot;label&quot;:&quot;Assigned To&quot;,&quot;picklistvalues&quot;:{&quot;Users&quot;:{&quot;5&quot;:&quot; &quot;,&quot;1&quot;:&quot;Uma Srinivas&quot;},&quot;Groups&quot;:{&quot;3&quot;:&quot;Marketing Group&quot;,&quot;4&quot;:&quot;Support Group&quot;,&quot;2&quot;:&quot;Team Selling&quot;}}}" data-name="assigned_user_id" data-validation-engine="validate[ required,funcCall[Vtiger_Base_Validator_Js.invokeValidation]]" class="chzn-select assigned_user_id chzn-done" id="sel00S" style="display: none;" data-element-name="assigned_user_id">
+                        <optgroup label="Users">
+                          <option data-userid="1" data-recordaccess="true" data-picklistvalue=" " value="5"> </option>
+                          <option data-userid="1" data-recordaccess="true" selected="" data-picklistvalue="Uma Srinivas" value="1">Uma Srinivas</option>
+                        </optgroup>
+                        <optgroup label="Groups">
+                          <option data-recordaccess="true" data-picklistvalue="Marketing Group" value="3">Marketing Group</option>
+                          <option data-recordaccess="true" data-picklistvalue="Support Group" value="4">Support Group</option>
+                          <option data-recordaccess="true" data-picklistvalue="Team Selling" value="2">Team Selling</option>
+                        </optgroup>
+                      </select>
+                      <div id="sel00S_chzn" class="chzn-container chzn-container-single" style="width: 230px;">
+                        <a class="chzn-single" href="javascript:void(0)"><span>Uma Srinivas</span>
+                          <div><b></b>
+                          </div>
+                        </a>
+                        <div style="left: -9000px; width: 228px; top: 0px;" class="chzn-drop">
+                          <div class="chzn-search" style="">
+                            <input type="text" autocomplete="off" style="width: 193px;">
+                          </div>
+                          <ul class="chzn-results">
+                            <li class="group-result" id="sel00S_chzn_g_0">Users</li>
+                            <li style="" class="active-result result-selected group-option" id="sel00S_chzn_o_2">Uma Srinivas</li>
+                            <li class="group-result" id="sel00S_chzn_g_3">Groups</li>
+                            <li style="" class="active-result group-option" id="sel00S_chzn_o_4">Marketing Group</li>
+                            <li style="" class="active-result group-option" id="sel00S_chzn_o_5">Support Group</li>
+                            <li style="" class="active-result group-option" id="sel00S_chzn_o_6">Team Selling</li>
+                          </ul>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="fieldLabel alignMiddle"> <span class="redColor">*</span> Start Date &amp; Time</td><td class="fieldValue">
+                      <div>
+                        <div class="input-append row-fluid">
+                          <div class="span12 row-fluid date"><input type="text" data-fieldinfo="{&quot;mandatory&quot;:true,&quot;presence&quot;:true,&quot;quickcreate&quot;:true,&quot;masseditable&quot;:true,&quot;defaultvalue&quot;:false,&quot;type&quot;:&quot;datetime&quot;,&quot;name&quot;:&quot;date_start&quot;,&quot;label&quot;:&quot;Start Date &amp; Time&quot;,&quot;date-format&quot;:&quot;dd-mm-yyyy&quot;}" data-validation-engine="validate[ required,funcCall[Vtiger_Base_Validator_Js.invokeValidation]]" value="07-08-2014" data-date-format="dd-mm-yyyy" class="dateField" id="Calendar_editView_fieldName_date_start" data-element-name="date_start"><span class="add-on"><i class="icon-calendar"></i></span>
+                          </div>
+                        </div>
+                      </div>
+                      <div>
+                        <div class="input-append time">
+                          <input type="text" data-fieldinfo="{&quot;mandatory&quot;:false,&quot;presence&quot;:true,&quot;quickcreate&quot;:false,&quot;masseditable&quot;:true,&quot;defaultvalue&quot;:false,&quot;type&quot;:&quot;time&quot;,&quot;name&quot;:&quot;time_start&quot;,&quot;label&quot;:&quot;Time Start&quot;,&quot;time-format&quot;:&quot;12&quot;}" data-validation-engine="validate[funcCall[Vtiger_Base_Validator_Js.invokeValidation]]" value="4:30 PM" class="timepicker-default input-small ui-timepicker-input" data-format="12" id="Calendar_editView_fieldName_time_start" autocomplete="off" data-element-name="time_start"><span class="add-on cursorPointer"><i class="icon-time"></i></span>
+                        </div>
+                      </div>
+                    </td>
+                    <td class="fieldLabel alignMiddle"> <span class="redColor">*</span> Due Date</td>
+                    <td class="fieldValue">
+                      <div>
+                        <div class="input-append row-fluid">
+                          <div class="span12 row-fluid date">
+                            <input type="text" data-fieldinfo="{&quot;mandatory&quot;:true,&quot;presence&quot;:true,&quot;quickcreate&quot;:true,&quot;masseditable&quot;:true,&quot;defaultvalue&quot;:false,&quot;type&quot;:&quot;datetime&quot;,&quot;name&quot;:&quot;due_date&quot;,&quot;label&quot;:&quot;Due Date&quot;,&quot;date-format&quot;:&quot;dd-mm-yyyy&quot;}" data-validator="[{&quot;name&quot;:&quot;greaterThanDependentField&quot;,&quot;params&quot;:[&quot;date_start&quot;]}]" data-validation-engine="validate[ required,funcCall[Vtiger_Base_Validator_Js.invokeValidation]]" value="07-08-2014" data-date-format="dd-mm-yyyy" class="dateField" id="Calendar_editView_fieldName_due_date" data-element-name="due_date"><span class="add-on"><i class="icon-calendar"></i></span>
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="fieldLabel alignMiddle"> <span class="redColor">*</span> Status</td>
+                    <td class="fieldValue">
+                      <select data-selected-value="" data-fieldinfo="{&quot;mandatory&quot;:true,&quot;presence&quot;:true,&quot;quickcreate&quot;:true,&quot;masseditable&quot;:true,&quot;defaultvalue&quot;:false,&quot;type&quot;:&quot;picklist&quot;,&quot;name&quot;:&quot;taskstatus&quot;,&quot;label&quot;:&quot;Status&quot;,&quot;picklistvalues&quot;:{&quot;Not Started&quot;:&quot;Not Started&quot;,&quot;In Progress&quot;:&quot;In Progress&quot;,&quot;Completed&quot;:&quot;Completed&quot;,&quot;Pending Input&quot;:&quot;Pending Input&quot;,&quot;Deferred&quot;:&quot;Deferred&quot;,&quot;Planned&quot;:&quot;Planned&quot;}}" data-validation-engine="validate[ required,funcCall[Vtiger_Base_Validator_Js.invokeValidation]]" class="chzn-select  chzn-done" id="selG4D" style="display: none;" data-element-name="taskstatus">
+                        <option value="">Select an Option</option>
+                        <option value="Not Started">Not Started</option>
+                        <option value="In Progress">In Progress</option>
+                        <option value="Completed">Completed</option>
+                        <option value="Pending Input">Pending Input</option>
+                        <option value="Deferred">Deferred</option>
+                        <option value="Planned">Planned</option>
+                      </select>
+                      <div id="selG4D_chzn" class="chzn-container chzn-container-single" style="width: 230px;">
+                        <a class="chzn-single" href="javascript:void(0)"><span>Select an Option</span>
+                        <div><b></b></div>
+                        </a>
+                        <div style="left: -9000px; width: 228px; top: 0px;" class="chzn-drop"><div class="chzn-search" style=""><input type="text" autocomplete="off" style="width: 193px;"></div>
+                          <ul class="chzn-results">
+                            <li style="" class="active-result result-selected" id="selG4D_chzn_o_0">Select an Option</li>
+                            <li style="" class="active-result" id="selG4D_chzn_o_1">Not Started</li>
+                            <li style="" class="active-result" id="selG4D_chzn_o_2">In Progress</li>
+                            <li style="" class="active-result" id="selG4D_chzn_o_3">Completed</li>
+                            <li style="" class="active-result" id="selG4D_chzn_o_4">Pending Input</li>
+                            <li style="" class="active-result" id="selG4D_chzn_o_5">Deferred</li>
+                            <li style="" class="active-result" id="selG4D_chzn_o_6">Planned</li>
+                          </ul>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="modal-footer quickCreateActions">
+            <a data-dismiss="modal" type="reset" class="cancelLink cancelLinkContainer pull-right">Cancel</a>
+            <button type="submit" class="btn btn-success"><strong>Save</strong></button>
+            <button data-edit-view-url="index.php?module=Calendar&amp;view=Edit&amp;mode=Calendar" type="button" id="goToFullForm" class="btn"><strong>Go to full form</strong></button>
+          </div>
+        </div>
+        <div class="EventsQuikcCreateContents_961869539 tab-pane  active in fade">
+        <div class="quickCreateContent">
+        <div style="margin:5px">
+          <table class="massEditTable table table-bordered">
+            <tbody>
+              <tr>
+                <td class="fieldLabel alignMiddle"> <span class="redColor">*</span> Subject</td>
+                <td class="fieldValue">
+                  <input type="text" data-fieldinfo="{&quot;mandatory&quot;:true,&quot;presence&quot;:true,&quot;quickcreate&quot;:true,&quot;masseditable&quot;:true,&quot;defaultvalue&quot;:false,&quot;type&quot;:&quot;string&quot;,&quot;name&quot;:&quot;subject&quot;,&quot;label&quot;:&quot;Subject&quot;}" value="" name="subject" data-validation-engine="validate[required,funcCall[Vtiger_Base_Validator_Js.invokeValidation]]" class="input-large nameField" id="Calendar_editView_fieldName_subject">
+                </td>
+                <td class="fieldLabel alignMiddle"> <span class="redColor">*</span> Assigned To</td>
+                <td class="fieldValue">
+                  <select data-fieldinfo="{&quot;mandatory&quot;:true,&quot;presence&quot;:true,&quot;quickcreate&quot;:true,&quot;masseditable&quot;:true,&quot;defaultvalue&quot;:false,&quot;type&quot;:&quot;owner&quot;,&quot;name&quot;:&quot;assigned_user_id&quot;,&quot;label&quot;:&quot;Assigned To&quot;,&quot;picklistvalues&quot;:{&quot;Users&quot;:{&quot;5&quot;:&quot; &quot;,&quot;1&quot;:&quot;Uma Srinivas&quot;},&quot;Groups&quot;:{&quot;3&quot;:&quot;Marketing Group&quot;,&quot;4&quot;:&quot;Support Group&quot;,&quot;2&quot;:&quot;Team Selling&quot;}}}" name="assigned_user_id" data-name="assigned_user_id" data-validation-engine="validate[ required,funcCall[Vtiger_Base_Validator_Js.invokeValidation]]" class="chzn-select assigned_user_id chzn-done" id="sel5R3" style="display: none;">
+                    <optgroup label="Users">
+                      <option data-userid="1" data-recordaccess="true" data-picklistvalue=" " value="5"> </option>
+                      <option data-userid="1" data-recordaccess="true" selected="" data-picklistvalue="Uma Srinivas" value="1">Uma Srinivas</option>
+                    </optgroup>
+                    <optgroup label="Groups">
+                      <option data-recordaccess="true" data-picklistvalue="Marketing Group" value="3">Marketing Group</option>
+                      <option data-recordaccess="true" data-picklistvalue="Support Group" value="4">Support Group</option>
+                      <option data-recordaccess="true" data-picklistvalue="Team Selling" value="2">Team Selling</option>
+                    </optgroup>
+                  </select>
+                  <div id="sel5R3_chzn" class="chzn-container chzn-container-single" style="width: 220px;">
+                    <a class="chzn-single" href="javascript:void(0)"><span>Uma Srinivas</span>
+                      <div><b></b></div>
+                    </a>
+                    <div style="left: -9000px; width: 218px; top: 28px;" class="chzn-drop">
+                      <div class="chzn-search"><input type="text" autocomplete="off" style="width: 183px;"></div>
+                      <ul class="chzn-results">
+                        <li class="group-result" id="sel5R3_chzn_g_0">Users</li>
+                        <li style="" class="active-result result-selected group-option" id="sel5R3_chzn_o_2">Uma Srinivas</li>
+                        <li class="group-result" id="sel5R3_chzn_g_3">Groups</li>
+                        <li style="" class="active-result group-option" id="sel5R3_chzn_o_4">Marketing Group</li>
+                        <li style="" class="active-result group-option" id="sel5R3_chzn_o_5">Support Group</li>
+                        <li style="" class="active-result group-option" id="sel5R3_chzn_o_6">Team Selling</li>
+                      </ul>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="fieldLabel alignMiddle"> <span class="redColor">*</span> Start Date &amp; Time</td>
+                <td class="fieldValue">
+                  <div>
+                    <div class="input-append row-fluid">
+                      <div class="span12 row-fluid date">
+                        <input type="text" data-fieldinfo="{&quot;mandatory&quot;:true,&quot;presence&quot;:true,&quot;quickcreate&quot;:true,&quot;masseditable&quot;:true,&quot;defaultvalue&quot;:false,&quot;type&quot;:&quot;datetime&quot;,&quot;name&quot;:&quot;date_start&quot;,&quot;label&quot;:&quot;Start Date &amp; Time&quot;,&quot;date-format&quot;:&quot;dd-mm-yyyy&quot;}" data-validation-engine="validate[ required,funcCall[Vtiger_Base_Validator_Js.invokeValidation]]" value="07-08-2014" data-date-format="dd-mm-yyyy" name="date_start" class="dateField" id="Calendar_editView_fieldName_date_start"><span class="add-on"><i class="icon-calendar"></i></span>
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="input-append time">
+                      <input type="text" data-fieldinfo="{&quot;mandatory&quot;:true,&quot;presence&quot;:true,&quot;quickcreate&quot;:true,&quot;masseditable&quot;:true,&quot;defaultvalue&quot;:false,&quot;type&quot;:&quot;time&quot;,&quot;name&quot;:&quot;time_start&quot;,&quot;label&quot;:&quot;Time Start&quot;,&quot;time-format&quot;:&quot;12&quot;}" data-validation-engine="validate[ required,funcCall[Vtiger_Base_Validator_Js.invokeValidation]]" name="time_start" value="4:30 PM" class="timepicker-default input-small ui-timepicker-input" data-format="12" id="Calendar_editView_fieldName_time_start" autocomplete="off"><span class="add-on cursorPointer"><i class="icon-time"></i></span>
+                    </div>
+                  </div>
+                </td>
+                <td class="fieldLabel alignMiddle"> <span class="redColor">*</span> End Date &amp; Time</td>
+                <td class="fieldValue">
+                  <div>
+                    <div class="input-append row-fluid">
+                      <div class="span12 row-fluid date">
+                        <input type="text" data-fieldinfo="{&quot;mandatory&quot;:true,&quot;presence&quot;:true,&quot;quickcreate&quot;:true,&quot;masseditable&quot;:true,&quot;defaultvalue&quot;:false,&quot;type&quot;:&quot;datetime&quot;,&quot;name&quot;:&quot;due_date&quot;,&quot;label&quot;:&quot;End Date &amp; Time&quot;,&quot;date-format&quot;:&quot;dd-mm-yyyy&quot;}" data-validator="[{&quot;name&quot;:&quot;greaterThanDependentField&quot;,&quot;params&quot;:[&quot;date_start&quot;]}]" data-validation-engine="validate[ required,funcCall[Vtiger_Base_Validator_Js.invokeValidation]]" value="07-08-2014" data-date-format="dd-mm-yyyy" name="due_date" class="dateField" id="Calendar_editView_fieldName_due_date"><span class="add-on"><i class="icon-calendar"></i></span>
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="input-append time">
+                      <input type="text" data-fieldinfo="{&quot;mandatory&quot;:true,&quot;presence&quot;:true,&quot;quickcreate&quot;:true,&quot;masseditable&quot;:true,&quot;defaultvalue&quot;:false,&quot;type&quot;:&quot;time&quot;,&quot;name&quot;:&quot;time_end&quot;,&quot;label&quot;:&quot;End Time&quot;,&quot;time-format&quot;:&quot;12&quot;}" data-validation-engine="validate[ required,funcCall[Vtiger_Base_Validator_Js.invokeValidation]]" name="time_end" value="4:35 PM" class="timepicker-default input-small ui-timepicker-input" data-format="12" id="Calendar_editView_fieldName_time_end" autocomplete="off"><span class="add-on cursorPointer"><i class="icon-time"></i></span>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="fieldLabel alignMiddle"> <span class="redColor">*</span> Status</td>
+                <td class="fieldValue">
+                  <select data-selected-value="Selecionar uma Opção" data-validator="[{&quot;name&quot;:&quot;futureEventCannotBeHeld&quot;,&quot;params&quot;:[&quot;date_start&quot;]}]" data-fieldinfo="{&quot;mandatory&quot;:true,&quot;presence&quot;:true,&quot;quickcreate&quot;:true,&quot;masseditable&quot;:true,&quot;defaultvalue&quot;:false,&quot;type&quot;:&quot;picklist&quot;,&quot;name&quot;:&quot;eventstatus&quot;,&quot;label&quot;:&quot;Status&quot;,&quot;picklistvalues&quot;:{&quot;Planned&quot;:&quot;Planned&quot;,&quot;Held&quot;:&quot;Held&quot;,&quot;Not Held&quot;:&quot;Not Held&quot;}}" data-validation-engine="validate[ required,funcCall[Vtiger_Base_Validator_Js.invokeValidation]]" name="eventstatus" class="chzn-select  chzn-done" id="selATU" style="display: none;">
+                    <option value="">Select an Option</option>
+                    <option value="Planned">Planned</option>
+                    <option value="Held">Held</option>
+                    <option value="Not Held">Not Held</option>
+                  </select>
+                  <div id="selATU_chzn" class="chzn-container chzn-container-single" style="width: 220px;">
+                    <a class="chzn-single" href="javascript:void(0)"><span>Select an Option</span>
+                      <div><b></b></div>
+                    </a>
+                    <div style="left: -9000px; width: 218px; top: 28px;" class="chzn-drop">
+                      <div class="chzn-search">
+                        <input type="text" autocomplete="off" style="width: 183px;">
+                      </div>
+                      <ul class="chzn-results">
+                        <li style="" class="active-result result-selected" id="selATU_chzn_o_0">Select an Option</li>
+                        <li style="" class="active-result" id="selATU_chzn_o_1">Planned</li>
+                        <li style="" class="active-result" id="selATU_chzn_o_2">Held</li>
+                        <li style="" class="active-result" id="selATU_chzn_o_3">Not Held</li>
+                      </ul>
+                    </div>
+                  </div>
+                </td>
+                <td class="fieldLabel alignMiddle"> <span class="redColor">*</span> Activity Type</td>
+                <td class="fieldValue">
+                  <select data-selected-value="Selecionar uma Opção" data-fieldinfo="{&quot;mandatory&quot;:true,&quot;presence&quot;:true,&quot;quickcreate&quot;:true,&quot;masseditable&quot;:true,&quot;defaultvalue&quot;:false,&quot;type&quot;:&quot;picklist&quot;,&quot;name&quot;:&quot;activitytype&quot;,&quot;label&quot;:&quot;Activity Type&quot;,&quot;picklistvalues&quot;:{&quot;Call&quot;:&quot;Call&quot;,&quot;Meeting&quot;:&quot;Meeting&quot;,&quot;Mobile Call&quot;:&quot;Mobile Call&quot;}}" data-validation-engine="validate[ required,funcCall[Vtiger_Base_Validator_Js.invokeValidation]]" name="activitytype" class="chzn-select  chzn-done" id="selXQV" style="display: none;">
+                    <option value="">Select an Option</option>
+                    <option value="Call">Call</option>
+                    <option value="Meeting">Meeting</option>
+                    <option value="Mobile Call">Mobile Call</option>
+                  </select>
+                  <div id="selXQV_chzn" class="chzn-container chzn-container-single" style="width: 220px;">
+                    <a class="chzn-single" href="javascript:void(0)"><span>Select an Option</span>
+                      <div><b></b></div>
+                    </a>
+                    <div style="left: -9000px; width: 218px; top: 28px;" class="chzn-drop">
+                      <div class="chzn-search"><input type="text" autocomplete="off" style="width: 183px;"></div>
+                      <ul class="chzn-results">
+                        <li style="" class="active-result result-selected" id="selXQV_chzn_o_0">Select an Option</li>
+                        <li style="" class="active-result" id="selXQV_chzn_o_1">Call</li>
+                        <li style="" class="active-result" id="selXQV_chzn_o_2">Meeting</li>
+                        <li style="" class="active-result" id="selXQV_chzn_o_3">Mobile Call</li>
+                      </ul>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+              <tr class="hide followUpContainer massEditActiveField">
+                <td class="fieldLabel">
+                  <label class="muted pull-right marginRight10px"><input type="checkbox" class="alignTop" name="followup">Hold Followup on</label>
+                </td>
+                <td class="fieldValue">
+                  <div>
+                    <div class="input-append row-fluid">
+                      <div class="span10 row-fluid date">
+                        <input type="text" data-validation-engine="validate[funcCall[Vtiger_greaterThanDependentField_Validator_Js.invokeValidation]]" value="07-08-2014" data-fieldinfo="{&quot;label&quot;:&quot;Hold Followup on&quot;}" data-date-format="dd-mm-yyyy" class="span9 dateField" name="followup_date_start">
+                        <span class="add-on"><i class="icon-calendar"></i></span>
+                      </div>
+                   </div>
+                 </div>
+                 <div>
+                   <div class="input-append time">
+                     <input type="text" value="4:30 PM" class="timepicker-default input-small ui-timepicker-input" name="followup_time_start" autocomplete="off">
+                     <span class="add-on cursorPointer"><i class="icon-time"></i></span>
+                   </div>
+                 </div>
+               </td>
+                <td>
+                </td>
+                <td>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+      </div>
+ </div>
+ <div class="modal-footer quickCreateActions">
+   <a data-dismiss="modal" type="reset" class="cancelLink cancelLinkContainer pull-right">Cancel</a>
+   <button type="submit" class="btn btn-success"><strong>Save</strong></button>
+   <button data-edit-view-url="index.php?module=Calendar&amp;view=Edit&amp;mode=Events" type="button" id="goToFullForm" class="btn"><strong>Go to full form</strong></button>
+ </div>
+ </div>
+ </div>
+    </div>
+  </form>
+</div>
+</script><!-- Modal for newEventForm-->
+<!--
+        <script type="text/javascript">
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-17352735-3']);
+            _gaq.push(['_trackPageview']);
+
+            (function () {
+                var ga = document.createElement('script');
+                ga.type = 'text/javascript';
+                ga.async = true;
+                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                var s = document.getElementsByTagName('script')[0];
+                s.parentNode.insertBefore(ga, s);
+            })();
+        </script>
+-->
+    </body>
+</html>

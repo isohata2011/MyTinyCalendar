@@ -3,12 +3,12 @@
  */
 angular.module('calendarDemoApp', ['ui.calendar', 'ui.bootstrap']);
 
-function CalendarCtrl($scope) {
+function CalendarCtrl($scope, $modal) {
     var date = new Date();
     var d = date.getDate();
     var m = date.getMonth();
     var y = date.getFullYear();
-    
+
     $scope.changeTo = 'Japanese';
     /* event source that pulls from google.com */
     $scope.eventSource = {
@@ -94,7 +94,13 @@ function CalendarCtrl($scope) {
         eventDrop: $scope.alertOnDrop,
         eventResize: $scope.alertOnResize,
         dayClick: function () {
-            alert('日付クリックイベント');
+            //alert('日付クリックイベント');
+            //$scope.newGuest = {};
+            $modal.open({
+                templateUrl: "T_newEventForm",
+                size: 'lg',
+                scope: $scope
+            });
         },
       }
     };
