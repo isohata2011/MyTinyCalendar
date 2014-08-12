@@ -17,6 +17,7 @@
 package jp.tokyo.mytiny.domain;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -24,6 +25,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 import org.hibernate.validator.constraints.NotEmpty;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.format.annotation.DateTimeFormat;
 
 /**
@@ -34,69 +37,100 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Entity
 public class Event implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+    protected static Logger log = LoggerFactory.getLogger( Event.class );
 
-	@Id
-	@GeneratedValue
-	private Long id;
+    private static final long serialVersionUID = 1L;
 
-	@Column(nullable = false)
-	@NotEmpty
-	private String title;
+    @Id
+    @GeneratedValue
+    private Long id;
 
-	@Column(nullable = true)
-	@DateTimeFormat(pattern="YYYY/MM/dd HH:mm:ss")
-	private java.util.Date startDatetime;
+    @Column(nullable = false)
+    @NotEmpty
+    private String title;
 
-	@Column(nullable = true)
-	@DateTimeFormat(pattern="YYYY/MM/dd HH:mm:ss")
-	private java.util.Date endDatetime;
+    @Column(nullable = true)
+    @DateTimeFormat(pattern="yyyy/MM/dd HH:mm")
+    private java.util.Date startDatetime;
 
-	public Event() {
-	}
+    @Column(nullable = true)
+    @DateTimeFormat(pattern="yyyy/MM/dd HH:mm")
+    private java.util.Date endDatetime;
 
-	public Event(String title, java.util.Date start, java.util.Date end) {
-		super();
-		this.title = title;
-		this.startDatetime = start;
-		this.endDatetime = end;
-	}
+    @Column(nullable = true)
+    private String start;
+    @Column(nullable = true)
+    private String end;
 
-	
-	public Long getId() {
-		return id;
-	}
+    @Column(nullable = false)
+    private boolean allDay = false;
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public Event() {
+    }
 
-	public String getTitle() {
-		return title;
-	}
+    public Event(String title, java.util.Date start, java.util.Date end) {
+        super();
+        this.title = title;
+        this.startDatetime = start;
+        this.endDatetime = end;
+    }
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
 
-	public java.util.Date getStartDatetime() {
-		return startDatetime;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public void setStartDatetime(java.util.Date startDatetime) {
-		this.startDatetime = startDatetime;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public java.util.Date getEndDatetime() {
-		return endDatetime;
-	}
+    public String getTitle() {
+        return title;
+    }
 
-	public void setEndDatetime(java.util.Date endDatetime) {
-		this.endDatetime = endDatetime;
-	}
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
-	@Override
-	public String toString() {
-		return getTitle() + "," + getStartDatetime() + "," + getEndDatetime();
-	}
+    public java.util.Date getStartDatetime() {
+        return startDatetime;
+    }
+
+    public void setStartDatetime(java.util.Date startDatetime) {
+        log.info(startDatetime.toString());
+        this.startDatetime = startDatetime;
+    }
+
+    public java.util.Date getEndDatetime() {
+        return endDatetime;
+    }
+
+    public void setEndDatetime(java.util.Date endDatetime) {
+        log.info(endDatetime.toString());
+        this.endDatetime = endDatetime;
+    }
+
+    public boolean isAllDay() {
+        return allDay;
+    }
+
+    public void setAllDay(boolean allDay) {
+        this.allDay = allDay;
+    }
+
+
+    public String getStart() {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+        return format.format(this.startDatetime);
+    }
+
+    public String getEnd() {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+        return format.format(this.endDatetime);
+    }
+
+    @Override
+    public String toString() {
+        return getTitle() + "," + getStartDatetime() + "," + getEndDatetime();
+    }
 }

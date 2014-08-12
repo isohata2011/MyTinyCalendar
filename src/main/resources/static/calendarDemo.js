@@ -12,22 +12,24 @@ function CalendarCtrl($scope, $modal) {
     $scope.changeTo = 'Japanese';
     /* event source that pulls from google.com */
     $scope.eventSource = {
+        url: "/events"
     };
     /* event source that contains custom events on the scope */
     $scope.events = [
-      {title: '１日中イベント',start: new Date(y, m, 1)},
-      {title: '長いイベント',start: new Date(y, m, d - 5),end: new Date(y, m, d - 2)},
-      {id: 999,title: 'Repeating Event',start: new Date(y, m, d - 3, 16, 0),allDay: false},
-      {id: 999,title: 'Repeating Event',start: new Date(y, m, d + 4, 16, 0),allDay: false},
-      {title: '誕生日',start: new Date(y, m, d + 1, 19, 0),end: new Date(y, m, d + 1, 22, 30),allDay: false},
-      {title: 'クリックするとグーグルへ飛ぶ',start: new Date(y, m, 28),end: new Date(y, m, 29),url: 'http://google.com/'}
+//      {title: '１日中イベント',start: new Date(y, m, 1)},
+//      {title: '長いイベント',start: new Date(y, m, d - 5),end: new Date(y, m, d - 2)},
+//      {id: 999,title: 'Repeating Event',start: new Date(y, m, d - 3, 16, 0),allDay: false},
+//      {id: 999,title: 'Repeating Event',start: new Date(y, m, d + 4, 16, 0),allDay: false},
+//      {title: '誕生日',start: new Date(y, m, d + 1, 19, 0),end: new Date(y, m, d + 1, 22, 30),allDay: false},
+//      {title: 'クリックするとグーグルへ飛ぶ',start: new Date(y, m, 28),end: new Date(y, m, 29),url: 'http://google.com/'}
     ];
     /* event source that calls a function on every view switch */
     $scope.eventsF = function (start, end, callback) {
       var s = new Date(start).getTime() / 1000;
       var e = new Date(end).getTime() / 1000;
       var m = new Date(start).getMonth();
-      var events = [{title: 'Feed Me ' + m,start: s + (50000),end: s + (100000),allDay: false, className: ['customFeed']}];
+      //var events = [{title: 'Feed Me ' + m,start: s + (50000),end: s + (100000),allDay: false, className: ['customFeed']}];
+      var events = [];
       callback(events);
     };
 
@@ -59,12 +61,12 @@ function CalendarCtrl($scope, $modal) {
     };
     /* add custom event*/
     $scope.addEvent = function() {
-      $scope.events.push({
-        title: 'Open Sesame',
-        start: new Date(y, m, 28),
-        end: new Date(y, m, 29),
-        className: ['openSesame']
-      });
+//      $scope.events.push({
+//        title: 'Open Sesame',
+//        start: new Date(y, m, 28),
+//        end: new Date(y, m, 29),
+//        className: ['openSesame']
+//      });
     };
     /* remove event */
     $scope.remove = function(index) {

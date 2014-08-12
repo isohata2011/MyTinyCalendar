@@ -2,13 +2,18 @@
 <html lang="en">
   <head>
     <meta charset="utf-8"/>
-    <meta content="0d98e1711511bad5603e965b33e2826af0c147ac" name="csrf-token" />
-    <script type="text/javascript" src="//code.jquery.com/jquery-2.1.0.min.js"></script>
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"/>
+<link rel="stylesheet" type="text/css" href="/css/jquery.datetimepicker.css"/>
+<style type="text/css">
+
+.custom-date-style {
+  background-color: red !important;
+}
+
+</style>
   </head>
   <body>
     <div class="container span12">
-      
+
 
 
 <h3>New Event</h3>
@@ -17,7 +22,7 @@
 
 
 <form th:object="${event}" method="post" action="/events/create" class="form">
- 
+
 
 
 <div class="form-group">
@@ -40,11 +45,11 @@
   <div class="controls row">
     <div class="">
       <div class="col-xs-2">
-        <input type="datetime" name="startDatetime"   class="form-control" value=""  maxlength="19" />
+        <input id="datetimepicker_start" type="datetime" name="startDatetime"   class="form-control" value=""  maxlength="19" />
         <td th:if="${#fields.hasErrors('startDatetime')}" th:errors="*{startDatetime}">Name Error</td>
       </div>
     </div>
-      </div>
+  </div>
 </div>
 <div class="form-group">
   <label class="control-label">
@@ -53,25 +58,40 @@
   <div class="controls row">
     <div class="">
       <div class="col-xs-2">
-        <input type="datetime" name="endDatetime" class="form-control" value=""  maxlength="19" />
+        <input id="datetimepicker_end" type="datetime" name="endDatetime" class="form-control" value=""  maxlength="19" />
         <td th:if="${#fields.hasErrors('endDatetime')}" th:errors="*{endDatetime}">Name Error</td>
       </div>
     </div>
-      </div>
+  </div>
 </div>
 <div class="form-actions">
-  <input type="hidden" name="csrf-token" value="0d98e1711511bad5603e965b33e2826af0c147ac"/>
   <input type="submit" class="btn btn-primary" value="Submit"/>
   <a class="btn btn-default" href="/events">Cancel</a>
 </div>
-
 </form>
 
       <hr/>
       <a class="btn btn-default" href="/">Top</a>
     </div>
-    <script type="text/javascript" src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
   </body>
+
+<script src="/js/jquery.js"></script>
+<script src="/js/jquery.datetimepicker.js"></script>
+<script>
+$('#datetimepicker_start').datetimepicker({
+  dayOfWeekStart : 1,
+  lang:'ja',
+//  format: 'Y/m/d H:m:s',
+  step: 10
+});
+
+$('#datetimepicker_end').datetimepicker({
+  dayOfWeekStart : 1,
+  lang:'ja',
+//  format: 'Y/m/d H:m:s',
+  step: 10
+});
+</script>
 </html>
 
 
