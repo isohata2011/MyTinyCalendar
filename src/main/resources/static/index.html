@@ -61,65 +61,53 @@
     <button title="Close" type="button" data-dismiss="modal" aria-hidden="true" class="close" ng-click="$close()">×</button>
     <h3>イベント登録</h3>
   </div>
-  <form action="index.php" method="post" name="QuickCreate" id="quickCreate" class="form-horizontal recordEditView">
+  <form action="/events/create" method="post" name="QuickCreate" id="quickCreate" class="form-horizontal recordEditView">
     <!-- Random number is used to make specific tab is opened -->
     <div style="padding:0px" class="modal-body tabbable">
       <div class="tab-content overflowVisible">
-        <div class="EventsQuikcCreateContents_961869539 tab-pane  active in fade">
         <div class="quickCreateContent">
-        <div style="margin:5px">
-          <table class="massEditTable table table-bordered">
-            <tbody>
-              <tr>
-                <td class="fieldLabel alignMiddle"> <span class="redColor">*</span> Subject</td>
-                <td class="fieldValue" colspan="3">
-                  <input type="text" value="" name="subject" class="input-large nameField" id="Calendar_editView_fieldName_subject" size="80">
-                </td>
-              </tr>
-              <tr>
-                <td class="fieldLabel alignMiddle"> <span class="redColor">*</span> Start Date &amp; Time</td>
-                <td class="fieldValue">
-                  <div>
-                    <div class="input-append row-fluid">
-                      <div class="span12 row-fluid date">
-                        <input type="text" data-fieldinfo="{&quot;mandatory&quot;:true,&quot;presence&quot;:true,&quot;quickcreate&quot;:true,&quot;masseditable&quot;:true,&quot;defaultvalue&quot;:false,&quot;type&quot;:&quot;datetime&quot;,&quot;name&quot;:&quot;date_start&quot;,&quot;label&quot;:&quot;Start Date &amp; Time&quot;,&quot;date-format&quot;:&quot;dd-mm-yyyy&quot;}" data-validation-engine="validate[ required,funcCall[Vtiger_Base_Validator_Js.invokeValidation]]" value="07-08-2014" data-date-format="dd-mm-yyyy" name="date_start" class="dateField" id="Calendar_editView_fieldName_date_start"><span class="add-on"><i class="icon-calendar"></i></span>
+          <div style="margin:5px">
+            <table class="massEditTable table table-bordered">
+              <tbody>
+                <tr>
+                  <td class="fieldLabel alignMiddle"> <span class="redColor">*</span> Subject</td>
+                  <td class="fieldValue" colspan="3">
+                    <input type="text" name="title" class="form-control" value="" size="80"/>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="fieldLabel alignMiddle"> <span class="redColor">*</span> Start Date &amp; Time</td>
+                  <td class="fieldValue">
+                    <div>
+                      <div class="input-append row-fluid">
+                        <div class="span12 row-fluid date">
+                          <input id="datetimepicker_start" type="datetime" name="startDatetime"   class="form-control" value=""  maxlength="19" />
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <div>
-                    <div class="input-append time">
-                      <input type="text" data-fieldinfo="{&quot;mandatory&quot;:true,&quot;presence&quot;:true,&quot;quickcreate&quot;:true,&quot;masseditable&quot;:true,&quot;defaultvalue&quot;:false,&quot;type&quot;:&quot;time&quot;,&quot;name&quot;:&quot;time_start&quot;,&quot;label&quot;:&quot;Time Start&quot;,&quot;time-format&quot;:&quot;12&quot;}" data-validation-engine="validate[ required,funcCall[Vtiger_Base_Validator_Js.invokeValidation]]" name="time_start" value="4:30 PM" class="timepicker-default input-small ui-timepicker-input" data-format="12" id="Calendar_editView_fieldName_time_start" autocomplete="off"><span class="add-on cursorPointer"><i class="icon-time"></i></span>
-                    </div>
-                  </div>
-                </td>
-                <td class="fieldLabel alignMiddle"> <span class="redColor">*</span> End Date &amp; Time</td>
-                <td class="fieldValue">
-                  <div>
-                    <div class="input-append row-fluid">
-                      <div class="span12 row-fluid date">
-                        <input type="text" data-fieldinfo="{&quot;mandatory&quot;:true,&quot;presence&quot;:true,&quot;quickcreate&quot;:true,&quot;masseditable&quot;:true,&quot;defaultvalue&quot;:false,&quot;type&quot;:&quot;datetime&quot;,&quot;name&quot;:&quot;due_date&quot;,&quot;label&quot;:&quot;End Date &amp; Time&quot;,&quot;date-format&quot;:&quot;dd-mm-yyyy&quot;}" data-validator="[{&quot;name&quot;:&quot;greaterThanDependentField&quot;,&quot;params&quot;:[&quot;date_start&quot;]}]" data-validation-engine="validate[ required,funcCall[Vtiger_Base_Validator_Js.invokeValidation]]" value="07-08-2014" data-date-format="dd-mm-yyyy" name="due_date" class="dateField" id="Calendar_editView_fieldName_due_date"><span class="add-on"><i class="icon-calendar"></i></span>
+                  </td>
+                  <td class="fieldLabel alignMiddle"> <span class="redColor">*</span> End Date &amp; Time</td>
+                  <td class="fieldValue">
+                    <div>
+                      <div class="input-append row-fluid">
+                        <div class="span12 row-fluid date">
+                          <input id="datetimepicker_end" type="datetime" name="endDatetime" class="form-control" value=""  maxlength="19" />
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <div>
-                    <div class="input-append time">
-                      <input type="text" data-fieldinfo="{&quot;mandatory&quot;:true,&quot;presence&quot;:true,&quot;quickcreate&quot;:true,&quot;masseditable&quot;:true,&quot;defaultvalue&quot;:false,&quot;type&quot;:&quot;time&quot;,&quot;name&quot;:&quot;time_end&quot;,&quot;label&quot;:&quot;End Time&quot;,&quot;time-format&quot;:&quot;12&quot;}" data-validation-engine="validate[ required,funcCall[Vtiger_Base_Validator_Js.invokeValidation]]" name="time_end" value="4:35 PM" class="timepicker-default input-small ui-timepicker-input" data-format="12" id="Calendar_editView_fieldName_time_end" autocomplete="off"><span class="add-on cursorPointer"><i class="icon-time"></i></span>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+        </div>
       </div>
- </div>
- <div class="modal-footer quickCreateActions">
-<a href="/events/new">実は登録はまだこちらからしかできない</a>
-   <button type="submit" class="btn btn-success"><strong>Save</strong></button>
-   <button title="Cancel" type="button" data-dismiss="modal" aria-hidden="true" class="btn" ng-click="$close()"><strong>Cancel</strong></button>
- </div>
- </div>
- </div>
+      <div class="modal-footer quickCreateActions">
+        <a href="/events/new">実は登録はまだこちらからしかできない</a>
+        <button type="submit" class="btn btn-success"><strong>Save</strong></button>
+        <button title="Cancel" type="button" data-dismiss="modal" aria-hidden="true" class="btn" ng-click="$close()"><strong>Cancel</strong></button>
+      </div>
     </div>
+  </div>
   </form>
 </div>
 </script><!-- Modal for newEventForm-->
