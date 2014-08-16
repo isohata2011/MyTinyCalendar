@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+  </head>
+  <body>
+    <div class="container span12">
+
+<h3>Events</h3>
+<hr/>
+<ul>
+    <a th:each="event : ${events}" th:href="@{/events/__${event.id}__}"><li th:text="${event.title} + '  start:' + ${event.startDatetime} + '  end:' + ${event.endDatetime}"></li></a>
+</ul>
+
+<div class="form-actions">
+</div>
+
+      <hr/>
+      <a class="btn btn-default" href="/">Top</a>
+      <a href="/events/new">新規登録</a>
+    </div>
+  </body>
+</html>

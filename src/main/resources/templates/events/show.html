@@ -8,7 +8,7 @@
   </head>
   <body>
     <div class="container span12">
-      
+
 
 
 <h3>Event</h3>
@@ -38,10 +38,12 @@
 
 <hr/>
 <div class="form-actions">
-  <a class="btn btn-default" href="/events">Back to list</a>
+  <a class="btn btn-default" href="/events/list">Back to list</a>
   <a th:href="@{/events/__${event.id}__/edit}" class="btn btn-info">Edit</a>
-  <a data-method="delete" data-confirm="Are you sure?"
-    th:href="@{/events/__${event.id}__}" rel="nofollow" class="btn btn-danger">Delete</a>
+<form style="display: inline" method="post"
+  th:action="@{/events/delete?(id=${event.id})}">
+  <input type="submit" value="Remove" />
+</form>
 </div>
 
       <hr/>

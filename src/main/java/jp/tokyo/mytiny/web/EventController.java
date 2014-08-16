@@ -28,6 +28,7 @@ import jp.tokyo.mytiny.service.EventService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,6 +38,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.support.SessionStatus;
 
@@ -49,7 +51,7 @@ public class EventController {
     @Autowired
     private EventService eventService;
 
-    @RequestMapping(value={"", "/", "/list"}, method=RequestMethod.GET)
+    @RequestMapping(value={"", "/"}, method=RequestMethod.GET)
     @Transactional(readOnly = true)
     @ResponseBody
     public List<Event> index(Model model, Pageable pagable) {
@@ -67,6 +69,14 @@ public class EventController {
         //e1.setEndDatetime(new Date());
         //eventList.add(e1);
         return eventList;
+    }
+
+    @RequestMapping(value={"/list"}, method=RequestMethod.GET)
+    @Transactional(readOnly = true)
+    public String list(Model model, Pageable pagable) {
+        Page<Event> eventList = eventService.findAll(pagable);
+        model.addAttribute("events", eventList);
+        return "events/list";
     }
 
     @RequestMapping(value="/new", method=RequestMethod.GET)
@@ -108,10 +118,16 @@ public class EventController {
         return "events/edit";
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public String delete(@PathVariable("id") Integer id, Model model) {
+//    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+//    public String delete(@PathVariable("id") Integer id, Model model) {
+//        eventService.delete(id);
+//        model.asMap().clear();
+//        return "redirect:/events/list";
+//    }
+
+    @RequestMapping(value = "delete", method = RequestMethod.POST)
+    String delete(@RequestParam("id") Long id) {
         eventService.delete(id);
-        model.asMap().clear();
         return "redirect:/events/list";
     }
 
