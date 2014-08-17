@@ -1,5 +1,4 @@
 spring:
-  port: ${port:80}
   thymeleaf:
     cache: false
   datasource:
