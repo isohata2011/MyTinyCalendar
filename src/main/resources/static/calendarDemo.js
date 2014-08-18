@@ -36,7 +36,14 @@ function CalendarCtrl($scope, $modal) {
 
     /* alert on eventClick */
     $scope.alertOnEventClick = function( event, allDay, jsEvent, view ){
-        $scope.alertMessage = (event.title + ' はクリックされました。 ');
+        //$scope.alertMessage = (event.title + ' はクリックされました。 ');
+      $scope.delete_event_id = event.id;
+        $modal.open({
+            templateUrl: "T_deleteEventForm",
+            size: 'sm',
+            scope: $scope
+        });
+
     };
     /* alert on Drop */
      $scope.alertOnDrop = function(event, dayDelta, minuteDelta, allDay, revertFunc, jsEvent, ui, view){
@@ -108,8 +115,8 @@ function CalendarCtrl($scope, $modal) {
             formatDatetime = formatDatetime.replace(/mm/g, ('0' + currentDate.getMinutes()).slice(-2));
             formatDatetime = formatDatetime.replace(/ss/g, ('0' + currentDate.getSeconds()).slice(-2));
 
-            $scope.startdatetime = formatDatetime;
-            $scope.enddatetime = formatDatetime;
+            $scope.startDatetime = formatDatetime;
+            $scope.endDatetime = formatDatetime;
             $modal.open({
                 templateUrl: "T_newEventForm",
                 size: 'lg',

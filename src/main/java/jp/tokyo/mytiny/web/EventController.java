@@ -129,7 +129,8 @@ public class EventController {
     @RequestMapping(value = "delete", method = RequestMethod.POST)
     String delete(@RequestParam("id") Long id) {
         eventService.delete(id);
-        return "redirect:/events/list";
+        //return "redirect:/events/list";
+        return "redirect:/";
     }
 
 //	String encodeUrlPathSegment(String pathSegment, HttpServletRequest httpServletRequest) {
