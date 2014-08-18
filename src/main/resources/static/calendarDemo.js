@@ -95,9 +95,21 @@ function CalendarCtrl($scope, $modal) {
         eventClick: $scope.alertOnEventClick,
         eventDrop: $scope.alertOnDrop,
         eventResize: $scope.alertOnResize,
-        dayClick: function () {
+        dayClick: function (clickedDate) {
             //alert('日付クリックイベント');
             //$scope.newGuest = {};
+
+            var currentDate = new Date();
+            var formatDatetime = 'YYYY/MM/DD hh:mm:ss';
+            formatDatetime = formatDatetime.replace(/YYYY/g, clickedDate.getFullYear());
+            formatDatetime = formatDatetime.replace(/MM/g, ('0' + (clickedDate.getMonth() + 1)).slice(-2));
+            formatDatetime = formatDatetime.replace(/DD/g, ('0' + clickedDate.getDate()).slice(-2));
+            formatDatetime = formatDatetime.replace(/hh/g, ('0' + currentDate.getHours()).slice(-2));
+            formatDatetime = formatDatetime.replace(/mm/g, ('0' + currentDate.getMinutes()).slice(-2));
+            formatDatetime = formatDatetime.replace(/ss/g, ('0' + currentDate.getSeconds()).slice(-2));
+
+            $scope.startdatetime = formatDatetime;
+            $scope.enddatetime = formatDatetime;
             $modal.open({
                 templateUrl: "T_newEventForm",
                 size: 'lg',
