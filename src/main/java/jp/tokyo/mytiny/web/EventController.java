@@ -94,7 +94,8 @@ public class EventController {
         log.info(event.toString());
         Event newEvent = eventService.save(event);
         log.info(newEvent.toString());
-        return "redirect:/events/" + newEvent.getId().toString();
+        //return "redirect:/events/" + newEvent.getId().toString();
+        return "redirect:/";
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)

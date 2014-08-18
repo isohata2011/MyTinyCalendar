@@ -6,7 +6,6 @@
     <link rel="icon" href="favicon.ico" />
     <link rel="stylesheet" href="./js/bootstrap-css/css/bootstrap.css" />
     <link rel="stylesheet" href="./js/fullcalendar/fullcalendar.css" />
-    <script src="./css/datetimepicker.css"></script>
     <link rel="stylesheet" href="calendarDemo.css" />
 
     <script src="./js/jquery/dist/jquery.js"></script>
@@ -17,7 +16,6 @@
     <script src="./js/fullcalendar/fullcalendar.js"></script>
     <script src="./js/fullcalendar/gcal.js"></script>
     <script src="./js/calendar.js"></script>
-    <script src="./js/datetimepicker.js"></script>
     <script src="calendarDemo.js"></script>
 </head>
 <body data-spy="scroll">
@@ -94,7 +92,17 @@
                     <div>
                       <div class="input-append row-fluid">
                         <div class="span12 row-fluid date">
-                          <input id="datetimepicker_end" type="datetime" name="endDatetime" class="form-control" value="{{enddatetime}}"  maxlength="19" />
+    <div class="dropdown">
+      <a class="dropdown-toggle" id="dropdown2" role="button" data-toggle="dropdown" data-target="#" href="#">
+        <div class="input-group">
+          <input name="endDatetime" value="{{endDatetime" type="text" class="form-control" data-ng-model="data.dateDropDownInput"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+        </div>
+      </a>
+      <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+        <datetimepicker data-ng-model="data.dateDropDownInput" data-datetimepicker-config="{ dropdownSelector: '#dropdown2' }"/>
+      </ul>
+    </div>
+
                         </div>
                       </div>
                     </div>
