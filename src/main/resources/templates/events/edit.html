@@ -44,7 +44,7 @@
   <div class="controls row">
     <div class="">
       <div class="col-xs-2">
-        <input id="datetimepicker_start" type="datetime" name="startDatetime"   class="form-control" th:value="*{startDatetime} ? *{#dates.format(startDatetime, 'yyyy/MM/dd HH:mm')}" value=""  maxlength="19" />
+        <input id="datetimepicker_start" type="datetime" name="startDatetime"   class="form-control" th:value="*{startDatetime} ? *{#dates.format(startDatetime, 'yyyy-MM-dd HH:mm')}" value=""  maxlength="19" />
       </div>
     </div>
   </div>
@@ -56,7 +56,7 @@
   <div class="controls row">
     <div class="">
       <div class="col-xs-2">
-        <input id="datetimepicker_end" type="datetime" name="endDatetime" class="form-control" th:value="*{endDatetime} ? *{#dates.format(endDatetime, 'yyyy/MM/dd HH:mm')}" value=""  maxlength="19" />
+        <input id="datetimepicker_end" type="datetime" name="endDatetime" class="form-control" th:value="*{endDatetime} ? *{#dates.format(endDatetime, 'yyyy-MM-dd HH:mm')}" value=""  maxlength="19" />
         <td th:if="${#fields.hasErrors('endDatetime')}" th:errors="*{endDatetime}">Name Error</td>
       </div>
     </div>
@@ -79,14 +79,14 @@
 $('#datetimepicker_start').datetimepicker({
   dayOfWeekStart : 1,
   lang:'ja',
-//  format: 'Y/m/d H:m:s',
+  format: 'Y-m-d H:m:s',
   step: 10
 });
 
 $('#datetimepicker_end').datetimepicker({
   dayOfWeekStart : 1,
   lang:'ja',
-//  format: 'Y/m/d H:m:s',
+  format: 'Y-m-d H:m:s',
   step: 10
 });
 </script>

@@ -107,7 +107,7 @@ function CalendarCtrl($scope, $modal) {
             //$scope.newGuest = {};
 
             var currentDate = new Date();
-            var formatDatetime = 'YYYY/MM/DD hh:mm:ss';
+            var formatDatetime = 'YYYY-MM-DD hh:mm:ss';
             formatDatetime = formatDatetime.replace(/YYYY/g, clickedDate.getFullYear());
             formatDatetime = formatDatetime.replace(/MM/g, ('0' + (clickedDate.getMonth() + 1)).slice(-2));
             formatDatetime = formatDatetime.replace(/DD/g, ('0' + clickedDate.getDate()).slice(-2));

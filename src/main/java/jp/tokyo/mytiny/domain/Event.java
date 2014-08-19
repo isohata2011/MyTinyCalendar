@@ -50,11 +50,11 @@ public class Event implements Serializable {
     private String title;
 
     @Column(nullable = true)
-    @DateTimeFormat(pattern="yyyy/MM/dd HH:mm")
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm")
     private java.util.Date startDatetime;
 
     @Column(nullable = true)
-    @DateTimeFormat(pattern="yyyy/MM/dd HH:mm")
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm")
     private java.util.Date endDatetime;
 
     @Column(nullable = true)
@@ -120,12 +120,12 @@ public class Event implements Serializable {
 
 
     public String getStart() {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         return format.format(this.startDatetime);
     }
 
     public String getEnd() {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         return format.format(this.endDatetime);
     }
 
