@@ -40,7 +40,8 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         String databaseUrl = System.getenv("DATABASE_URL");
         if (databaseUrl != null) {
             URI dbUri = new URI(databaseUrl);
-            url = "jdbc:postgresql://" + dbUri.getHost() + dbUri.getPath() + ":" + dbUri.getPort() + dbUri.getPath();
+            //url = "jdbc:postgresql://" + dbUri.getHost() + dbUri.getPath() + ":" + dbUri.getPort() + dbUri.getPath();
+            url = "jdbc:postgresql://" + dbUri.getHost() + ":" + dbUri.getPort() + dbUri.getPath();
             username = dbUri.getUserInfo().split(":")[0];
             password = dbUri.getUserInfo().split(":")[1];
         } else {
@@ -49,6 +50,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
             password = this.properties.getPassword();
         }
 
+        logger.info("databaseEnvUrl:" + databaseUrl);
         logger.info("databaseUrl:" + url);
         logger.info("databaseUsername:" + username);
         logger.info("databasePassword:" + password);
