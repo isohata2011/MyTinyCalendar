@@ -59,7 +59,7 @@ public class Event implements Serializable {
 
     @Column(nullable = true)
     private String start;
-    @Column(nullable = true)
+    @Column(nullable = true, name="end_t") //Postgresでは、endというカラム名が使えない
     private String end;
 
     @Column(nullable = false)
