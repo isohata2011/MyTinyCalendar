@@ -1,21 +1,28 @@
 spring:
+  profle:
+    active: dev
   thymeleaf:
     cache: false
-  profile:
-    active: dev
-  jpa.hibernate.ddl-auto: update
 
+---
 spring:
-  profiles: dev
-  datasource:
-    driverClassName: org.h2.Driver
-    url: c:/tmp/bookmark
-    username: sa
-    password:
-  jpa.database: H2
+    profiles: dev
+    datasource:
+      driverClassName: org.h2.Driver
+      url: jdbc:h2:file:/tmp/bookmark
+      username: sa
+      password:
+    jpa:
+      database: H2
+      hibernate:
+        ddl-auto: update
 
+---
 spring:
-  profiles: heroku
-  datasource:
-    driverClassName: org.postgresql.Driver
-  jpa.database: POSTGRESQL
+    profiles: heroku
+    datasource:
+      driverClassName: org.postgresql.Driver
+    jpa:
+      database: POSTGRESQL
+      hibernate:
+        ddl-auto: update
