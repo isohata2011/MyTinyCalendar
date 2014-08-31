@@ -7,6 +7,8 @@ import javax.sql.DataSource;
 
 import net.sf.log4jdbc.Log4jdbcProxyDataSource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;
@@ -21,6 +23,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 @Configuration
 public class WebConfig extends WebMvcConfigurerAdapter {
+	
+	private static Logger logger = LoggerFactory.getLogger(WebConfig.class);
+	
     @Autowired
     DataSourceProperties properties;
     DataSource dataSource;
@@ -44,6 +49,10 @@ public class WebConfig extends WebMvcConfigurerAdapter {
             password = this.properties.getPassword();
         }
 
+        logger.info("databaseUrl:" + url);
+        logger.info("databaseUsername:" + username);
+        logger.info("databasePassword:" + password);
+        
         DataSourceBuilder factory = DataSourceBuilder
                 .create(this.properties.getClassLoader())
                 .url(url)
