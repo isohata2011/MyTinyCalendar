@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
  
 @Configuration
 @EnableAutoConfiguration
-@ComponentScan
+@ComponentScan("jp.tokyo.mytiny")
 public class App {
  
     public static void main(String[] args) {

@@ -69,7 +69,6 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         return new Log4jdbcProxyDataSource(this.dataSource);
     }
 
-    // ここから
     @Bean
     @Order(Ordered.HIGHEST_PRECEDENCE)
     CharacterEncodingFilter characterEncodingFilter() {
@@ -77,6 +76,5 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         filter.setEncoding("UTF-8");
         return filter;
     }
-    // ここまで
 
 }
